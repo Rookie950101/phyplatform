@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooperation.promanager.dao.UnStdProMapper">
+  <resultMap id="BaseResultMap" type="com.cooperation.promanager.pojo.UnStdPro">
+    <id column="proid" jdbcType="BIGINT" property="proid" />
+    <result column="profacid" jdbcType="BIGINT" property="profacid" />
+    <result column="probandid" jdbcType="BIGINT" property="probandid" />
+    <result column="procateid" jdbcType="BIGINT" property="procateid" />
+    <result column="unstdproname" jdbcType="VARCHAR" property="unstdproname" />
+    <result column="showflag" jdbcType="BIGINT" property="showflag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    proid, profacid, probandid, procateid, unstdproname, showflag
+  </sql>
+  <select id="selectByExample" parameterType="com.cooperation.promanager.pojo.UnStdProExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from unstdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from unstdpro
+    where proid = #{proid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from unstdpro
+    where proid = #{proid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cooperation.promanager.pojo.UnStdProExample">
+    delete from unstdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cooperation.promanager.pojo.UnStdPro">
+    insert into unstdpro (proid, profacid, probandid, 
+      procateid, unstdproname, showflag
+      )
+    values (#{proid,jdbcType=BIGINT}, #{profacid,jdbcType=BIGINT}, #{probandid,jdbcType=BIGINT}, 
+      #{procateid,jdbcType=BIGINT}, #{unstdproname,jdbcType=VARCHAR}, #{showflag,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cooperation.promanager.pojo.UnStdPro">
+    insert into unstdpro
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proid != null">
+        proid,
+      </if>
+      <if test="profacid != null">
+        profacid,
+      </if>
+      <if test="probandid != null">
+        probandid,
+      </if>
+      <if test="procateid != null">
+        procateid,
+      </if>
+      <if test="unstdproname != null">
+        unstdproname,
+      </if>
+      <if test="showflag != null">
+        showflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proid != null">
+        #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="profacid != null">
+        #{profacid,jdbcType=BIGINT},
+      </if>
+      <if test="probandid != null">
+        #{probandid,jdbcType=BIGINT},
+      </if>
+      <if test="procateid != null">
+        #{procateid,jdbcType=BIGINT},
+      </if>
+      <if test="unstdproname != null">
+        #{unstdproname,jdbcType=VARCHAR},
+      </if>
+      <if test="showflag != null">
+        #{showflag,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cooperation.promanager.pojo.UnStdProExample" resultType="java.lang.Long">
+    select count(*) from unstdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update unstdpro
+    <set>
+      <if test="record.proid != null">
+        proid = #{record.proid,jdbcType=BIGINT},
+      </if>
+      <if test="record.profacid != null">
+        profacid = #{record.profacid,jdbcType=BIGINT},
+      </if>
+      <if test="record.probandid != null">
+        probandid = #{record.probandid,jdbcType=BIGINT},
+      </if>
+      <if test="record.procateid != null">
+        procateid = #{record.procateid,jdbcType=BIGINT},
+      </if>
+      <if test="record.unstdproname != null">
+        unstdproname = #{record.unstdproname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showflag != null">
+        showflag = #{record.showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update unstdpro
+    set proid = #{record.proid,jdbcType=BIGINT},
+      profacid = #{record.profacid,jdbcType=BIGINT},
+      probandid = #{record.probandid,jdbcType=BIGINT},
+      procateid = #{record.procateid,jdbcType=BIGINT},
+      unstdproname = #{record.unstdproname,jdbcType=VARCHAR},
+      showflag = #{record.showflag,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cooperation.promanager.pojo.UnStdPro">
+    update unstdpro
+    <set>
+      <if test="profacid != null">
+        profacid = #{profacid,jdbcType=BIGINT},
+      </if>
+      <if test="probandid != null">
+        probandid = #{probandid,jdbcType=BIGINT},
+      </if>
+      <if test="procateid != null">
+        procateid = #{procateid,jdbcType=BIGINT},
+      </if>
+      <if test="unstdproname != null">
+        unstdproname = #{unstdproname,jdbcType=VARCHAR},
+      </if>
+      <if test="showflag != null">
+        showflag = #{showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    where proid = #{proid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cooperation.promanager.pojo.UnStdPro">
+    update unstdpro
+    set profacid = #{profacid,jdbcType=BIGINT},
+      probandid = #{probandid,jdbcType=BIGINT},
+      procateid = #{procateid,jdbcType=BIGINT},
+      unstdproname = #{unstdproname,jdbcType=VARCHAR},
+      showflag = #{showflag,jdbcType=BIGINT}
+    where proid = #{proid,jdbcType=BIGINT}
+  </update>
+</mapper>

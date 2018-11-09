@@ -1,0 +1,19 @@
+spring:
+   #消费者
+   dubbo:
+    #配置别名
+     application:
+       id: registermd
+       name: registermd
+    #配置注册中心
+     registry:
+       address: zookeeper://47.94.168.85:2191
+       #告诉注册中心，要什么服务,扫描服务类包目录
+     scan: com.cooperation.permission.serviceimpl
+
+server:
+  port: 8081
+  address: 127.0.0.1
+
+
+

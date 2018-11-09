@@ -1,0 +1,5 @@
+com\cooperation\weblog\pojo\WebLog.class
+com\cooperation\weblog\pojo\WebLogExample$Criteria.class
+com\cooperation\weblog\pojo\WebLogExample$GeneratedCriteria.class
+com\cooperation\weblog\pojo\WebLogExample.class
+com\cooperation\weblog\pojo\WebLogExample$Criterion.class

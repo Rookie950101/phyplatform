@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooperation.promanager.dao.ProFmMapper">
+  <resultMap id="BaseResultMap" type="com.cooperation.promanager.pojo.ProFm">
+    <id column="profmid" jdbcType="BIGINT" property="profmid" />
+    <result column="profmname" jdbcType="VARCHAR" property="profmname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    profmid, profmname
+  </sql>
+
+    <!--**********************后加***************************-->
+    <!--根据剂型名得到剂型id-->
+    <select id="selectByName" parameterType="java.lang.String" resultType="java.lang.Long">
+        select profmid from profm where profmname = #{profmname}
+    </select>
+
+    <!--****************************************************-->
+
+  <select id="selectByExample" parameterType="com.cooperation.promanager.pojo.ProFmExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from profm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from profm
+    where profmid = #{profmid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from profm
+    where profmid = #{profmid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cooperation.promanager.pojo.ProFmExample">
+    delete from profm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cooperation.promanager.pojo.ProFm">
+    insert into profm (profmid, profmname)
+    values (#{profmid,jdbcType=BIGINT}, #{profmname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cooperation.promanager.pojo.ProFm">
+    insert into profm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="profmid != null">
+        profmid,
+      </if>
+      <if test="profmname != null">
+        profmname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="profmid != null">
+        #{profmid,jdbcType=BIGINT},
+      </if>
+      <if test="profmname != null">
+        #{profmname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cooperation.promanager.pojo.ProFmExample" resultType="java.lang.Long">
+    select count(*) from profm
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update profm
+    <set>
+      <if test="record.profmid != null">
+        profmid = #{record.profmid,jdbcType=BIGINT},
+      </if>
+      <if test="record.profmname != null">
+        profmname = #{record.profmname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update profm
+    set profmid = #{record.profmid,jdbcType=BIGINT},
+      profmname = #{record.profmname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cooperation.promanager.pojo.ProFm">
+    update profm
+    <set>
+      <if test="profmname != null">
+        profmname = #{profmname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where profmid = #{profmid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cooperation.promanager.pojo.ProFm">
+    update profm
+    set profmname = #{profmname,jdbcType=VARCHAR}
+    where profmid = #{profmid,jdbcType=BIGINT}
+  </update>
+</mapper>

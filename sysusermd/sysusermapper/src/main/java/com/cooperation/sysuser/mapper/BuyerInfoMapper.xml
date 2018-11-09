@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooperation.sysuser.dao.BuyerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cooperation.sysuser.pojo.BuyerInfo">
+    <id column="buyerid" jdbcType="BIGINT" property="buyerid" />
+    <result column="sysuserid" jdbcType="BIGINT" property="sysuserid" />
+    <result column="buyername" jdbcType="VARCHAR" property="buyername" />
+    <result column="buyerage" jdbcType="BIGINT" property="buyerage" />
+    <result column="buyerphone" jdbcType="VARCHAR" property="buyerphone" />
+    <result column="buyerweixin" jdbcType="VARCHAR" property="buyerweixin" />
+    <result column="buyeraddr" jdbcType="VARCHAR" property="buyeraddr" />
+    <result column="buyeridentity" jdbcType="VARCHAR" property="buyeridentity" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    buyerid, sysuserid, buyername, buyerage, buyerphone, buyerweixin, buyeraddr, buyeridentity
+  </sql>
+
+    <!--*******************后加*************************-->
+    <!--查询所有普通用户-->
+    <select id="selectAll" resultType="com.cooperation.sysuser.pojo.BuyerInfo">
+        select * from consumerinfo
+    </select>
+
+    <!--************************************************-->
+
+  <select id="selectByExample" parameterType="com.cooperation.sysuser.pojo.BuyerInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from buyerinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from buyerinfo
+    where buyerid = #{buyerid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from buyerinfo
+    where buyerid = #{buyerid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cooperation.sysuser.pojo.BuyerInfoExample">
+    delete from buyerinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cooperation.sysuser.pojo.BuyerInfo">
+    insert into buyerinfo (buyerid, sysuserid, buyername, 
+      buyerage, buyerphone, buyerweixin, 
+      buyeraddr, buyeridentity)
+    values (#{buyerid,jdbcType=BIGINT}, #{sysuserid,jdbcType=BIGINT}, #{buyername,jdbcType=VARCHAR}, 
+      #{buyerage,jdbcType=BIGINT}, #{buyerphone,jdbcType=VARCHAR}, #{buyerweixin,jdbcType=VARCHAR}, 
+      #{buyeraddr,jdbcType=VARCHAR}, #{buyeridentity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cooperation.sysuser.pojo.BuyerInfo">
+    insert into buyerinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buyerid != null">
+        buyerid,
+      </if>
+      <if test="sysuserid != null">
+        sysuserid,
+      </if>
+      <if test="buyername != null">
+        buyername,
+      </if>
+      <if test="buyerage != null">
+        buyerage,
+      </if>
+      <if test="buyerphone != null">
+        buyerphone,
+      </if>
+      <if test="buyerweixin != null">
+        buyerweixin,
+      </if>
+      <if test="buyeraddr != null">
+        buyeraddr,
+      </if>
+      <if test="buyeridentity != null">
+        buyeridentity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buyerid != null">
+        #{buyerid,jdbcType=BIGINT},
+      </if>
+      <if test="sysuserid != null">
+        #{sysuserid,jdbcType=BIGINT},
+      </if>
+      <if test="buyername != null">
+        #{buyername,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerage != null">
+        #{buyerage,jdbcType=BIGINT},
+      </if>
+      <if test="buyerphone != null">
+        #{buyerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerweixin != null">
+        #{buyerweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="buyeraddr != null">
+        #{buyeraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="buyeridentity != null">
+        #{buyeridentity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cooperation.sysuser.pojo.BuyerInfoExample" resultType="java.lang.Long">
+    select count(*) from buyerinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update buyerinfo
+    <set>
+      <if test="record.buyerid != null">
+        buyerid = #{record.buyerid,jdbcType=BIGINT},
+      </if>
+      <if test="record.sysuserid != null">
+        sysuserid = #{record.sysuserid,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyername != null">
+        buyername = #{record.buyername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerage != null">
+        buyerage = #{record.buyerage,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyerphone != null">
+        buyerphone = #{record.buyerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerweixin != null">
+        buyerweixin = #{record.buyerweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyeraddr != null">
+        buyeraddr = #{record.buyeraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyeridentity != null">
+        buyeridentity = #{record.buyeridentity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update buyerinfo
+    set buyerid = #{record.buyerid,jdbcType=BIGINT},
+      sysuserid = #{record.sysuserid,jdbcType=BIGINT},
+      buyername = #{record.buyername,jdbcType=VARCHAR},
+      buyerage = #{record.buyerage,jdbcType=BIGINT},
+      buyerphone = #{record.buyerphone,jdbcType=VARCHAR},
+      buyerweixin = #{record.buyerweixin,jdbcType=VARCHAR},
+      buyeraddr = #{record.buyeraddr,jdbcType=VARCHAR},
+      buyeridentity = #{record.buyeridentity,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cooperation.sysuser.pojo.BuyerInfo">
+    update buyerinfo
+    <set>
+      <if test="sysuserid != null">
+        sysuserid = #{sysuserid,jdbcType=BIGINT},
+      </if>
+      <if test="buyername != null">
+        buyername = #{buyername,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerage != null">
+        buyerage = #{buyerage,jdbcType=BIGINT},
+      </if>
+      <if test="buyerphone != null">
+        buyerphone = #{buyerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerweixin != null">
+        buyerweixin = #{buyerweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="buyeraddr != null">
+        buyeraddr = #{buyeraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="buyeridentity != null">
+        buyeridentity = #{buyeridentity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where buyerid = #{buyerid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cooperation.sysuser.pojo.BuyerInfo">
+    update buyerinfo
+    set sysuserid = #{sysuserid,jdbcType=BIGINT},
+      buyername = #{buyername,jdbcType=VARCHAR},
+      buyerage = #{buyerage,jdbcType=BIGINT},
+      buyerphone = #{buyerphone,jdbcType=VARCHAR},
+      buyerweixin = #{buyerweixin,jdbcType=VARCHAR},
+      buyeraddr = #{buyeraddr,jdbcType=VARCHAR},
+      buyeridentity = #{buyeridentity,jdbcType=VARCHAR}
+    where buyerid = #{buyerid,jdbcType=BIGINT}
+  </update>
+</mapper>

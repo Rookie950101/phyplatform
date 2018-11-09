@@ -1,0 +1,4 @@
+com\cooperation\redis\MainApplication.class
+com\cooperation\redis\serviceimpl\MyRedisServiceImpl.class
+com\cooperation\redis\RedisConfig.class
+com\cooperation\redis\service\MyRedisService.class

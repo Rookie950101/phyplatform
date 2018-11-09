@@ -1,0 +1,40 @@
+#开发配置
+# 使用druid数据源
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/phyplatform
+    username: root
+    password: k950101
+    driver-class-name: com.mysql.jdbc.Driver
+    initialSize: 5
+    maxActive: 200
+    minIdle: 5
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+#服务提供者
+  dubbo:
+    #配置别名
+    application:
+           id: syspermissionmd
+           name: syspermissionmd
+    #配置注册中心
+    registry:
+           address: zookeeper://47.94.168.85:2191
+    protocol:
+           name: dubbo
+           port: 20800
+    #告诉注册中心，要注册服务,扫描服务类包目录
+    scan: com.cooperation.permission.serviceimpl
+
+
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.cooperation.permission.pojo
+
+

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooperation.promanager.dao.StdProMapper">
+  <resultMap id="BaseResultMap" type="com.cooperation.promanager.pojo.StdPro">
+    <id column="stdproid" jdbcType="BIGINT" property="stdproid" />
+    <result column="proskuid" jdbcType="BIGINT" property="proskuid" />
+    <result column="showflag" jdbcType="BIGINT" property="showflag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stdproid, proskuid, showflag
+  </sql>
+
+    <!--*************后加****************-->
+    <!--//根据 stdproid 得到 proskuid-->
+    <select id="select3" parameterType="java.lang.Long" resultType="java.lang.Long">
+       select proskuid from stdpro where stdproid = #{stdproid}
+    </select>
+
+    <!--*****************************-->
+
+  <select id="selectByExample" parameterType="com.cooperation.promanager.pojo.StdProExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stdpro
+    where stdproid = #{stdproid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from stdpro
+    where stdproid = #{stdproid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cooperation.promanager.pojo.StdProExample">
+    delete from stdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cooperation.promanager.pojo.StdPro">
+    insert into stdpro (stdproid, proskuid, showflag
+      )
+    values (#{stdproid,jdbcType=BIGINT}, #{proskuid,jdbcType=BIGINT}, #{showflag,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cooperation.promanager.pojo.StdPro">
+    insert into stdpro
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stdproid != null">
+        stdproid,
+      </if>
+      <if test="proskuid != null">
+        proskuid,
+      </if>
+      <if test="showflag != null">
+        showflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stdproid != null">
+        #{stdproid,jdbcType=BIGINT},
+      </if>
+      <if test="proskuid != null">
+        #{proskuid,jdbcType=BIGINT},
+      </if>
+      <if test="showflag != null">
+        #{showflag,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cooperation.promanager.pojo.StdProExample" resultType="java.lang.Long">
+    select count(*) from stdpro
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stdpro
+    <set>
+      <if test="record.stdproid != null">
+        stdproid = #{record.stdproid,jdbcType=BIGINT},
+      </if>
+      <if test="record.proskuid != null">
+        proskuid = #{record.proskuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.showflag != null">
+        showflag = #{record.showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stdpro
+    set stdproid = #{record.stdproid,jdbcType=BIGINT},
+      proskuid = #{record.proskuid,jdbcType=BIGINT},
+      showflag = #{record.showflag,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cooperation.promanager.pojo.StdPro">
+    update stdpro
+    <set>
+      <if test="proskuid != null">
+        proskuid = #{proskuid,jdbcType=BIGINT},
+      </if>
+      <if test="showflag != null">
+        showflag = #{showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    where stdproid = #{stdproid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cooperation.promanager.pojo.StdPro">
+    update stdpro
+    set proskuid = #{proskuid,jdbcType=BIGINT},
+      showflag = #{showflag,jdbcType=BIGINT}
+    where stdproid = #{stdproid,jdbcType=BIGINT}
+  </update>
+</mapper>

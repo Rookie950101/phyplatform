@@ -1,0 +1,3 @@
+com\cooperation\common\bean\permission\dto\RoleAndAuthKeyDTO.class
+com\cooperation\common\bean\permission\dto\SysAndRoleKeyDTO.class
+com\cooperation\common\bean\permission\dto\SysUserDTO.class

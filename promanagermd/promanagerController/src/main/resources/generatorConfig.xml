@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <!-- 插件需要连接数据库生成代码，也需要使用数据库的jar包，这里是jar包的完整地址 修改为自己仓库中的jar包位置 -->
+  <classPathEntry location="C:\Users\Administrator\.m2\mhg\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" ></classPathEntry>
+  <context id="context1" >
+	<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+	</commentGenerator>
+	  <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://localhost:3306/phyplatform?characterEncoding=utf-8"
+                    userId="root"
+                    password="k950101" />
+	  <!-- 生成POJO类JavaBean的位置 -->
+    <javaModelGenerator targetPackage="com.cooperation.promanager.pojo" targetProject="../promanagerpojo/src/main/java" />
+	  <!-- mapper映射文件（动态SQL）生成的位置 -->
+    <sqlMapGenerator targetPackage="com.cooperation.promanager.mapper" targetProject="../promanagermapper/src/main/java" />
+	  <!-- mapper接口（DAO接口）生成的位置 -->
+    <javaClientGenerator targetPackage="com.cooperation.promanager.dao" targetProject="../promanagerdao/src/main/java" type="XMLMAPPER" />
+
+      <!-- 指定数据库表 -->
+      <!--商品公共信息 7 张表-->
+      <!--商品类型库表-->
+    <!--  <table  tableName="protype" domainObjectName="ProType"></table>  -->
+      <!--商品类型规格对应表-->
+    <!--  <table  tableName="typeandstd" domainObjectName="TypeAndStd"></table>  -->
+      <!--商品通用规格库表-->
+    <!--  <table  tableName="comprostd" domainObjectName="ComProStd"></table>  -->
+      <!--商品剂型库表-->
+    <!--  <table  tableName="profm" domainObjectName="ProFm"></table>  -->
+      <!--商品生产厂商库表-->
+    <!--  <table  tableName="profac" domainObjectName="ProFac"></table>   -->
+      <!--商品品牌库表-->
+    <!--  <table  tableName="proband" domainObjectName="ProBand"></table>   -->
+      <!--商品品牌规格库表-->
+    <!--  <table  tableName="banfm" domainObjectName="BanFm"></table>    -->
+
+      <!--商品类目 1 张表-->
+      <!--商品类目表-->
+    <!--  <table  tableName="procateinfo" domainObjectName="ProcateInfo"></table>   -->
+
+      <!--基础产品库 5 张表-->
+      <!--批文基础信息表-->
+    <!--  <table  tableName="approvalinfo" domainObjectName="ApprovalInfo"></table>  -->
+      <!--基础药品信息表-->
+    <!--  <table  tableName="basmdcinfo" domainObjectName="BasMdcInfo"></table>  -->
+      <!--药品标准SKU表-->
+    <!--  <table  tableName="mdcskuinfo" domainObjectName="MdcSkuInfo"></table>   -->
+      <!--基础商品信息表-->
+    <!--  <table  tableName="basproinfo" domainObjectName="BasProInfo"></table>   -->
+      <!--商品标准SKU表-->
+    <!--  <table  tableName="proskuinfo" domainObjectName="ProSkuInfo"></table>   -->
+
+      <!--商品库 3 张表-->
+      <!--药品表-->
+    <!--  <table  tableName="mdcinfo" domainObjectName="MdcInfo"></table>   -->
+      <!--标准商品表-->
+    <!--  <table  tableName="stdpro" domainObjectName="StdPro"></table>     -->
+      <!--非标准商品表-->
+      <table  tableName="unstdpro" domainObjectName="UnStdPro"></table>
+
+      <!--回收站 3 张表-->
+      <!--药品回收站表-->
+    <!--  <table  tableName="mdccycle" domainObjectName="MdcCycle"></table>   -->
+      <!--标准化商品回收站表-->
+    <!--  <table  tableName="stdcycle" domainObjectName="StdCycle"></table>   -->
+      <!--非标准化商品回收站表-->
+    <!--  <table  tableName="unstdcycle" domainObjectName="UnstdCycle"></table>   -->
+
+  </context>
+</generatorConfiguration>

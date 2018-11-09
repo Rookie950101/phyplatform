@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooperation.promanager.dao.MdcInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cooperation.promanager.pojo.MdcInfo">
+    <id column="mdcid" jdbcType="BIGINT" property="mdcid" />
+    <result column="mdcskuid" jdbcType="BIGINT" property="mdcskuid" />
+    <result column="showflag" jdbcType="BIGINT" property="showflag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mdcid, mdcskuid, showflag
+  </sql>
+
+    <!--****************后加********************-->
+    <!--根据mdcid得到mdcskuid-->
+    <select id="selectskuid" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select mdcskuid from mdcinfo where mdcid = #{mdcid}
+    </select>
+
+    <!--************************************-->
+
+  <select id="selectByExample" parameterType="com.cooperation.promanager.pojo.MdcInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mdcinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mdcinfo
+    where mdcid = #{mdcid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mdcinfo
+    where mdcid = #{mdcid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cooperation.promanager.pojo.MdcInfoExample">
+    delete from mdcinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cooperation.promanager.pojo.MdcInfo">
+    insert into mdcinfo (mdcid, mdcskuid, showflag
+      )
+    values (#{mdcid,jdbcType=BIGINT}, #{mdcskuid,jdbcType=BIGINT}, #{showflag,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cooperation.promanager.pojo.MdcInfo">
+    insert into mdcinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mdcid != null">
+        mdcid,
+      </if>
+      <if test="mdcskuid != null">
+        mdcskuid,
+      </if>
+      <if test="showflag != null">
+        showflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mdcid != null">
+        #{mdcid,jdbcType=BIGINT},
+      </if>
+      <if test="mdcskuid != null">
+        #{mdcskuid,jdbcType=BIGINT},
+      </if>
+      <if test="showflag != null">
+        #{showflag,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cooperation.promanager.pojo.MdcInfoExample" resultType="java.lang.Long">
+    select count(*) from mdcinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mdcinfo
+    <set>
+      <if test="record.mdcid != null">
+        mdcid = #{record.mdcid,jdbcType=BIGINT},
+      </if>
+      <if test="record.mdcskuid != null">
+        mdcskuid = #{record.mdcskuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.showflag != null">
+        showflag = #{record.showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mdcinfo
+    set mdcid = #{record.mdcid,jdbcType=BIGINT},
+      mdcskuid = #{record.mdcskuid,jdbcType=BIGINT},
+      showflag = #{record.showflag,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cooperation.promanager.pojo.MdcInfo">
+    update mdcinfo
+    <set>
+      <if test="mdcskuid != null">
+        mdcskuid = #{mdcskuid,jdbcType=BIGINT},
+      </if>
+      <if test="showflag != null">
+        showflag = #{showflag,jdbcType=BIGINT},
+      </if>
+    </set>
+    where mdcid = #{mdcid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cooperation.promanager.pojo.MdcInfo">
+    update mdcinfo
+    set mdcskuid = #{mdcskuid,jdbcType=BIGINT},
+      showflag = #{showflag,jdbcType=BIGINT}
+    where mdcid = #{mdcid,jdbcType=BIGINT}
+  </update>
+</mapper>
